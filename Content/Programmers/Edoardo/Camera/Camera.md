@@ -1,0 +1,14 @@
+﻿## Camera
+The camera in this game behaves likely to a side scroller game with some exceptions (for now, I predict they will change a lot during the course of the project, if not just completely be remade in the future).
+The general behaviour is: it follows the main character if the companion is not out. If the companion is out, it focuses the middle point between the character and the companion. It pans horizontally as the character(s) move, but a lerping value can be set, so it can also rotate horizontally in case it should slowly follow the focus point instead of panning there immediately. It rotates freely vertically instead, as the character(s) move closer, or away from the camera.
+Being a separate actor, not strictly related to the main character, it has a reference to the player controller (which initially spawns the camera, for now) which is needed to ask any info on the character or the companion, like their distance or if any of the two is going out of screen.
+### Properties
+Useful for initial camera setting, for designers to be played with (be advised: any time it is  referred to **target point** it means "the character" if the companion is not out, or "the middle point between the character and the companion" if it is out):
+
+ - **float floorDistanceFromTargetPoint**: the **minimum** distance the camera must have from the target point, projected on the floor.
+ - **float heightFromFloor**: the vertical height of the camera from the floor. Together with the floorDistanceFromTargetPoint they form a rect triangle, and they also establish a vertical camera rotation, which is fixed (not meaning it doesn't change, but it can't be set by hand).
+ - **float timeToReachTargetLocation**: the lerping time the camera needs to move  and reach the target points when it moves.
+ - **float speedToGoAway**: the speed of the camera to make it go farther away from the screen in case one of the character is going out of bounds. ATTENTION: this speed is not set as cm/s so don't put values as if it were (well, you would notice it very fast. Literally). I didn't multiply this value for DeltaTime because since it's put inside a Lerp function, which is already  dependent by DeltaTime, I was afraid to make this variable become doubly dependent by DeltaTime. No bueno. With time I'll understand if I should change this or not but for now, keep the values low.
+ - **float speedToComeBack**: the speed of the camera to go back to the original position in  case the characters were going out of bounds and are now going again near to each other.
+ - **float toleranceForScreenBounds**: the amount of pixel the camera should decide to move back **before** the characters actually reach the bounds of the screen. It was a bit ugly if the camera moved exactly when the characters were going out. It's better if it starts moving a bit earlier.
+

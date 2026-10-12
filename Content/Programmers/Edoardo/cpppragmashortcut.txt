@@ -1,0 +1,19 @@
+#pragma region UPROPERTY
+
+#pragma endregion
+
+#pragma region VARIABLES
+
+#pragma endregion 
+	
+#pragma region CONSTRUCTOR
+
+#pragma endregion
+
+#pragma region UFUNCTIONS
+
+#pragma endregion
+	
+#pragma region METHODS
+
+#pragma endregion
